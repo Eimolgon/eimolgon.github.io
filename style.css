@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+
+/* Navigation Bar */
+.navbar {
+    border: 1px solid #e7e7e7;
+    background-color: #f8f8f8;
+    min-height: 50px;
+    margin-bottom: 20px;
+}
+
+.navbar-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    color: #777;
+    font-size: 18px;
+    padding: 15px;
+    text-decoration: none;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-nav li a {
+    color: #777;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+}
+
+.navbar-nav li a:hover {
+    color: #333;
+    background-color: transparent;
+}
+
+.navbar-nav li a {
+    position: relative; /* Needed for absolute positioning of the underline */
+}
+
+.navbar-nav li a:hover::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #999;
+}
+
+
+.active a {
+    color: #555 !important;
+    background-color: #e7e7e7 !important;
+}
+
+/* Page Layout */
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+}
+
+/* Sidebar - made smaller than original */
+.sidebar {
+    width: 200px; /* Reduced from original */
+    padding-right: 30px;
+    float: left;
+}
+
+.sidebar img {
+    max-width: 100%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.sidebar h1 {
+    font-size: 22px;
+    margin-top: 0;
+}
+
+.sidebar p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Main content area */
+.main-content {
+    flex: 1;
+    max-width: 900px;
+    padding: 0 20px;
+    border-left: 1px solid #e7e7e7;
+    min-height: 600px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .page-container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        padding-right: 0;
+        text-align: center;
+    }
+    .main-content {
+        border-left: none;
+        border-top: 1px solid #e7e7e7;
+        padding-top: 20px;
+    }
+}
