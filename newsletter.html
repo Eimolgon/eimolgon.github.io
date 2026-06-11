@@ -1,0 +1,129 @@
+---
+layout: default
+title: Newsletter
+permalink: /newsletter/
+---
+
+<style>
+    .newsletter-container { 
+        max-width: 600px; 
+        margin-top: 20px;
+    }
+    .archive-menu-zone {
+        margin: 15px 0 25px 0;
+        font-family: monospace;
+        font-size: 14px;
+        background: #f1f5f9;
+        padding: 10px;
+        border-radius: 4px;
+        color: #333;
+    }
+    .archive-dropdown {
+        padding: 6px 10px;
+        font-family: monospace;
+        border: 1px solid #aaa;
+        background: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    .timeline-hr { 
+        border: none; 
+        border-top: 1px solid #ddd; 
+        margin: 1.5rem 0; 
+    }
+    .timeline-entry {
+        border-left: 2px solid #ccc;
+        padding: 0 0 1.5rem 1rem;
+        position: relative;
+    }
+    .timeline-entry:last-child { padding-bottom: 0; }
+    .timeline-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #aaa;
+        position: absolute;
+        left: -5px; top: 6px;
+    }
+    .entry-date { font-size: 11px; color: #aaa; margin-bottom: 4px; font-family: monospace; }
+    .entry-text { font-size: 14px; line-height: 1.6; margin-top: 4px; }
+    .nl-tag {
+        display: inline-block;
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin-bottom: 4px;
+        font-family: monospace;
+    }
+    .tag-Visitas   { background: #dbeafe; color: #1e40af; }
+    .tag-Updates   { background: #fef9c3; color: #854d0e; }
+    .tag-Services  { background: #dcfce7; color: #166534; }
+    .tag-Limpieza  { background: #fce7f3; color: #9d174d; }
+    .tag-Other     { background: #f1f5f9; color: #475569; }
+</style>
+
+<div class="newsletter-container">
+    <h1 id="newsletter-title">Newsletter</h1>
+    
+    <div class="archive-menu-zone">
+        <strong>Browse History:</strong>
+        <select id="week-select" class="archive-dropdown">
+            <option value="26w24" selected>Week 24, 2026</option>
+            <option value="26w23">Week 23, 2026</option>
+            <option value="26w22">Week 22, 2026</option>
+        </select>
+    </div>
+    
+    <hr class="timeline-hr" />
+    <div id="entries">Loading timeline updates...</div>
+</div>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    const selector = document.getElementById('week-select');
+    const titleElement = document.getElementById('newsletter-title');
+    const entriesDiv = document.getElementById('entries');
+
+    function loadNewsletter(weekCode) {
+        entriesDiv.innerHTML = 'Loading timeline updates...';
+        
+        const selectedText = selector.options[selector.selectedIndex].text;
+        titleElement.textContent = `Newsletter — ${selectedText}`;
+
+        const jsonUrl = `/pages/newsletter/${weekCode}.json?nocache=` + Date.now();
+
+        fetch(jsonUrl)
+            .then(response => {
+                if (!response.ok) throw new Error("File not found");
+                return response.json();
+            })
+            .then(entries => {
+                if (!entries || !entries.length) {
+                    entriesDiv.innerHTML = '<p style="color:#aaa;font-size:13px">No updates logged for this week.</p>';
+                    return;
+                }
+                
+                entriesDiv.innerHTML = entries.map(e => `
+                    <div class="timeline-entry">
+                        <div class="timeline-dot"></div>
+                        <div class="entry-date">${e.date}</div>
+                        <span class="nl-tag tag-${e.tag || 'Other'}">${e.tag}</span>
+                        <p class="entry-text">${e.content}</p>
+                    </div>
+                `).join('');
+            })
+            .catch(error => {
+                console.error("Error loading JSON dataset timeline:", error);
+                entriesDiv.innerHTML = `<p style="color:#aaa;font-size:13px">Failed to load logs for /pages/newsletter/${weekCode}.json. Check that the file exists.</p>`;
+            });
+    }
+
+    // Initialize layout
+    loadNewsletter(selector.value);
+
+    // Watch for menu changes
+    selector.addEventListener('change', function() {
+        loadNewsletter(this.value);
+    });
+});
+</script>
