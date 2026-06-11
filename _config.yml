@@ -1,0 +1,10 @@
+title: Eimolgon's site
+permalink: /blog/:title/
+markdown: kramdown
+theme: null # Keeps Jekyll from applying a default theme, forcing it to use YOUR style
+
+# This tells Jekyll to treat your custom folder like blog posts
+collections:
+  articles:
+    output: true
+    permalink: /blog/:name/
