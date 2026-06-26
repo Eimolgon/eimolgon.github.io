@@ -67,7 +67,7 @@ permalink: /newsletter/
 </style>
 
 <div class="newsletter-container">
-    <h1>Newsletter</h1>
+    <h1>Newsletter 623</h1>
     <p style="font-size: 13px; color: #888;">Weekly home updates, logs, and events</p>
     <hr class="timeline-hr">
     
