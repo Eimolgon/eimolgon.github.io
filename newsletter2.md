@@ -77,7 +77,7 @@ permalink: /newsletter/
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     // Points directly to your simple clean JSON weekly asset
-    const jsonUrl = "/pages/newsletter/2606.json?nocache=" + Date.now();
+    const jsonUrl = "/pages/newsletter/2607.json?nocache=" + Date.now();
 
     fetch(jsonUrl)
         .then(response => {
